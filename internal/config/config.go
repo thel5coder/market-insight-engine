@@ -36,17 +36,24 @@ type RedisConfig struct {
 	Wait                bool
 }
 
-type ExternalAPIs struct {
-	BinanceKey string
-	FinnhubKey string
-	OpenAIKey  string
+type ExternalApi struct {
+	BaseUrl   string
+	SecretKey string
+	APIKey    string
+}
+
+type ExternalMarketAPI struct {
+	BinanceApi    ExternalApi
+	FinhubApi     ExternalApi
+	TwelveDataApi ExternalApi
+	TappiApi      ExternalApi
 }
 
 type Config struct {
 	App      AppConfig
 	Postgres PostgresConfig
 	Redis    RedisConfig
-	APIs     ExternalAPIs
+	APIs     ExternalMarketAPI
 }
 
 // Load reads the variables and explicitly maps them.
@@ -91,10 +98,12 @@ func Load() (*Config, error) {
 			Port:     vpr.GetString("REDIS_PORT"),
 			Password: vpr.GetString("REDIS_PASSWORD"),
 		},
-		APIs: ExternalAPIs{
-			BinanceKey: vpr.GetString("BINANCE_API_KEY"),
-			FinnhubKey: vpr.GetString("FINNHUB_API_KEY"),
-			OpenAIKey:  vpr.GetString("OPENAI_API_KEY"),
+		APIs: ExternalMarketAPI{
+			BinanceApi: ExternalApi{
+				BaseUrl:   vpr.GetString("BINANCE_BASE_URL"),
+				SecretKey: vpr.GetString("BINANCE_SECRET_KEY"),
+				APIKey:    vpr.GetString("BINANCE_API_KEY"),
+			},
 		},
 	}
 
