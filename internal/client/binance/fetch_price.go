@@ -1,33 +1,15 @@
-package client
+package binance
 
 import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"market-insight-engine/internal/config"
-	"market-insight-engine/internal/domain/interfaces"
 	"market-insight-engine/internal/domain/model"
 	"net/http"
 	"strconv"
 )
 
-type BinanceClient struct {
-	apiKey     string
-	httpClient *http.Client
-	baseURL    string
-}
-
-var _ interfaces.CryptoClient = (*BinanceClient)(nil)
-
-func NewBinanceClient(cfg config.ExternalMarketAPI, httpClient *http.Client) interfaces.CryptoClient {
-	return &BinanceClient{
-		apiKey:     cfg.BinanceApi.APIKey,
-		baseURL:    cfg.BinanceApi.BaseUrl,
-		httpClient: httpClient,
-	}
-}
-
-func (b *BinanceClient) FetchPrice(ctx context.Context, symbol string) (*model.MarketData, error) {
+func (b *binanceClient) FetchPrice(ctx context.Context, symbol string) (*model.MarketData, error) {
 	url := fmt.Sprintf("%s/api/v3/ticker/price?symbol=%s", b.baseURL, symbol)
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)

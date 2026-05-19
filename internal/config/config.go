@@ -104,6 +104,11 @@ func Load() (*Config, error) {
 				SecretKey: vpr.GetString("BINANCE_SECRET_KEY"),
 				APIKey:    vpr.GetString("BINANCE_API_KEY"),
 			},
+			FinhubApi: ExternalApi{
+				BaseUrl:   vpr.GetString("FINNHUB_BASE_URL"),
+				SecretKey: vpr.GetString("FINNHUB_SECRET_KEY"),
+				APIKey:    vpr.GetString("FINNHUB_API_KEY"),
+			},
 		},
 	}
 
