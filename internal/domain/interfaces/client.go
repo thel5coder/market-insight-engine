@@ -16,4 +16,9 @@ type NewsClient interface {
 
 type ForexClient interface {
 	FetchForexPrice(ctx context.Context, symbol string) (*model.MarketData, error)
+	FetchRSI(ctx context.Context, symbol string, interval string) (float64, error)
+}
+
+type AIClient interface {
+	AnalyzeMarket(ctx context.Context, prompt string) (*model.InsightResult, error)
 }

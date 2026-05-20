@@ -47,6 +47,8 @@ type ExternalMarketAPI struct {
 	FinhubApi     ExternalApi
 	TwelveDataApi ExternalApi
 	TappiApi      ExternalApi
+	OpenAI        ExternalApi
+	GeminiAI      ExternalApi
 }
 
 type Config struct {
